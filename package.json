@@ -1,0 +1,26 @@
+{
+  "name": "phh_shooting_game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satoyuichi/phh_shooting_game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satoyuichi/phh_shooting_game/issues"
+  },
+  "homepage": "https://github.com/satoyuichi/phh_shooting_game#readme",
+  "dependencies": {
+    "p5": "^0.5.14"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^7.3.0"
+  }
+}
