@@ -10,31 +10,25 @@
     <script type="text/javascript" src="./node_modules/p5/lib/p5.min.js"></script>
     <script type="text/javascript" src="bundle.js"></script>
     <script>
-      window.addEventListener ('DOMContentLoaded', () => {
-
       const Core = require ('Main');
       const gameMain = new Core.Main ();
       const gui = new dat.GUI();
-      
-      var stats = new Stats();
+      const stats = new Stats();
       stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
       document.body.appendChild( stats.domElement );
 
-      function animate() {
+      function setup () {
+      createCanvas(720, 400);
+      }
 
+      function draw () {
       stats.begin();
 
       // monitored code goes here
       gameMain.step ();
 
       stats.end();
-
-      requestAnimationFrame( animate );
-
       }
-
-      requestAnimationFrame( animate );
-      });
     </script>
   </body>
 </html>

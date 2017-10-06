@@ -18,5 +18,6 @@ export class Main {
   
   step () {
     this._frameCount += this._frameStep;
+    this._stage.step (this._frameStep);
   }
 }
