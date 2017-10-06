@@ -1,3 +1,5 @@
+import Sprite from './sprite.js';
+
 export class Airframe extends Sprite {
   constructor () {
     super ();

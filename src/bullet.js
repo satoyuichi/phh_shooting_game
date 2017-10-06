@@ -1,3 +1,5 @@
+import { Sprite } from './sprite.js';
+
 export class Bullet extends Sprite {
   constructor () {
     super ();
