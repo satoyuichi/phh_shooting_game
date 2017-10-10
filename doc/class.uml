@@ -1,0 +1,9 @@
+@startuml
+Main *-- Controller
+Main *-- Stage
+Stage *-- Airframe
+Sprite <|-- Airframe
+Sprite <|-- Bullet
+Airframe *-- Weapon
+Weapon *-- Bullet
+@enduml
