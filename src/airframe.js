@@ -1,26 +1,26 @@
-import { Cannon } from './cannon.js';
+import { Weapon } from './weapon.js';
 import { Sprite } from './sprite.js';
 
 export class Airframe extends Sprite {
-  constructor () {
+  constructor (condition) {
     super ();
-    this._frameCount = 0.0;
-    this._velocity = new p5.Vector (0, 1.0, 0);
-    this._cannon = new Cannon (this._position);
-    this._isDead = false;
-    this._isKilled = false;
-    this._hp = 1.0;
+    this._position = new p5.Vector (condition.x, condition.y, 0.0);
+    this._frameCount = 0.0;     // 出現してからのフレーム数
+    this._velocity = new p5.Vector (0, 1.0, 0); // 速度
+    this._weapon = new Weapon (this._position); // 武器
+    this._isDead = false;                       // 死亡フラグ
+    this._isKilled = false;                     // 殺されたフラグ
+    this._hp = 1.0;                             // HP
   }
 
   fireNormal () {
-//    this._cannon.fire ();
+    this._weapon.fire (this._frameCount);
   }
 
   step (frameStep) {
     this._position.add (this._velocity);
     
-    ellipse(this._position.x, this._position.y, 55, 55);
-
+    // 画面外に出た時の処理をする
     if (this.isOverScreen ()) {
       this._isDead = true;
     }

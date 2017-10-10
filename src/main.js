@@ -1,14 +1,12 @@
 'use strict';
-// import { Airframe } from './airframe.js';
-// import { Cannon } from './cannon.js';
-// import { Bullet } from './bullet.js';
-// import { Sprite } from './sprite.js';
+import { Controller } from './controller.js';
 import { Stage } from './stage.js';
 
 export class Main {
   constructor () {
     this._frameCount = 0.0;
     this._frameStep = 1.0;
+    this._controller = new Controller ();
     this._stage = new Stage ();
   }
 
@@ -17,7 +15,7 @@ export class Main {
   }
   
   step () {
-    this._frameCount += this._frameStep;
     this._stage.step (this._frameStep);
+    this._frameCount += this._frameStep;
   }
 }

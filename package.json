@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/satoyuichi/phh_shooting_game#readme",
   "dependencies": {
+    "assert": "^1.4.1",
     "p5": "^0.5.14"
   },
   "devDependencies": {

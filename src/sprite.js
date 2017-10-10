@@ -1,9 +1,14 @@
 export class Sprite {
   constructor () {
-    this._position = new p5.Vector (0, 0, 0);
+    this._position = new p5.Vector (0, 0, 0); // 描画位置
   }
 
   draw () {
+    ellipse(this._position.x, this._position.y, 25, 25);
+  }
+
+  set position (value) {
+    this._position = value;
   }
 
   isOverScreen () {
