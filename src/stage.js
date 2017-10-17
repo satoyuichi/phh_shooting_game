@@ -2,10 +2,19 @@ import { Airframe } from './airframe.js';
 
 export class Stage {
   constructor () {
+    this._assets = {
+      bullet : "http://4.bp.blogspot.com/-J72gjEjMTw0/VJF_TYOe0KI/AAAAAAAAp1Q/jdOBqLRkEro/s150/ball02_white.png",
+      enemy : "http://1.bp.blogspot.com/-8vjnbp_AXMM/USSkq9AIKTI/AAAAAAAANV0/PQ6FLf-xUks/s400/alien_ufo.png",
+      mine: "http://1.bp.blogspot.com/-b61DOaSM_q4/VRUS1r55baI/AAAAAAAAswg/WQSc3snquok/s400/space_kikansen.png",
+    };                      // このステージで使う Asset
     this._frameCount = 0.0;     // ステージが始まってからのフレームカウント
     this._airframes = [];       // 出現中の機体
 
     this.initAppearanceCondition ();
+  }
+
+  get assets () {
+    return this._assets;
   }
 
   /**

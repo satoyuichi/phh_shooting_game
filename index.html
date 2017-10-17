@@ -10,25 +10,29 @@
     <script type="text/javascript" src="./node_modules/p5/lib/p5.min.js"></script>
     <script type="text/javascript" src="bundle.js"></script>
     <script>
-      const Core = require ('Main');
-      const gameMain = new Core.Main ();
-      const gui = new dat.GUI();
-      const stats = new Stats();
-      stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-      document.body.appendChild( stats.domElement );
+     const Core = require ('Main');
+     const main = new Core.Main ();
+     const gui = new dat.GUI();
+     const stats = new Stats();
+     stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+     document.body.appendChild( stats.domElement );
 
-      function setup () {
-      createCanvas(720, 400);
-      }
+     function preload () {
+	 main.preload ();
+     }
 
-      function draw () {
-      stats.begin();
+     function setup () {
+	 createCanvas(720, 400);
+     }
 
-      // monitored code goes here
-      gameMain.step ();
+     function draw () {
+	 stats.begin();
 
-      stats.end();
-      }
+	 // monitored code goes here
+	 main.step ();
+
+	 stats.end();
+     }
     </script>
   </body>
 </html>

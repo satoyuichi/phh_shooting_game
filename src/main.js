@@ -1,6 +1,7 @@
 'use strict';
 import { Controller } from './controller.js';
 import { Stage } from './stage.js';
+import { Asset } from './asset.js'
 
 export class Main {
   constructor () {
@@ -8,10 +9,15 @@ export class Main {
     this._frameStep = 1.0;
     this._controller = new Controller ();
     this._stage = new Stage ();
+    this._asset = new Asset (this._stage.assets );
   }
 
   set frameStep (value) {
     this._frameStep = value;
+  }
+
+  preload () {
+    this._asset.load ();
   }
   
   step () {
