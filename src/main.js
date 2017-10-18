@@ -9,7 +9,7 @@ export class Main {
     this._frameStep = 1.0;
     this._controller = new Controller ();
     this._stage = new Stage ();
-    this._asset = new Asset (this._stage.assets );
+    this._asset = new Asset (this._stage.assets);
   }
 
   set frameStep (value) {

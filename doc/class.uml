@@ -1,6 +1,11 @@
 @startuml
 Main *-- Controller
 Main *-- Stage
+Main *-- Asset
+
+Asset -- Stage
+Asset -- Sprite
+
 Stage *-- Airframe
 Sprite <|-- Airframe
 Sprite <|-- Bullet
