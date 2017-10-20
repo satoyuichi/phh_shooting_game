@@ -55,17 +55,13 @@ export class Asset {
   }
 
   load () {
-    for (var key of Object.keys (this._standardAssets)) {
-      let asset = this._standardAssets[key];
-      switch (asset.type) {
-      case Asset.RESOURCE_TYPE_IMAGE:
-        asset.resource = loadImage(asset.url);
-        break;
-      }
-    }
+    this.loadImages (this._standardAssets);
+    this.loadImages (this._advancedAssets);
+  }
 
-    for (var key of Object.keys (this._advancedAssets)) {
-      let asset = this._advancedAssets[key];
+  loadImages (assetNames) {
+    for (var key of Object.keys (assetNames)) {
+      let asset = assetNames[key];
       switch (asset.type) {
       case Asset.RESOURCE_TYPE_IMAGE:
         asset.resource = loadImage(asset.url);

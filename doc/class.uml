@@ -1,8 +1,11 @@
 @startuml
+note "Singleton pattern" as Singleton
+
 class Asset {
 + _standardAssets
 + _advancedAssets
 }
+Asset .. Singleton
 
 class Sprite {
 + _position
@@ -20,6 +23,9 @@ class Main {
 + preload ()
 + step ()
 }
+
+class Controller
+Controller .. Singleton
 
 Main *-- Controller
 Main *-- Stage

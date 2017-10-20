@@ -1,34 +1,50 @@
+let controller_single_instance = null;
+
 export class Controller {
   constructor () {
-    this.initConstantValues ();
-    this.clearKey ();
+    if (!controller_single_instance) {
+      controller_single_instance = this;
+    }
+    
+    controller_single_instance.initConstantValues ();
+    controller_single_instance.clearKey ();
+
+    return controller_single_instance;
+  }
+
+  get instance () {
+    if (!controller_single_instance) {
+      controller_single_instance = new Controller ();
+    }
+    
+    return controller_single_instance;
   }
 
   initConstantValues () {
-    this.KEY_TYPE_INVALID = 0;
-    this.KEY_TYPE_SHOT = this.KEY_TYPE_INVALID + 1;
-    this.KEY_TYPE_DOWN = this.KEY_TYPE_SHOT + 1;
-    this.KEY_TYPE_UP = this.KEY_TYPE_DOWN + 1;
-    this.KEY_TYPE_LEFT = this.KEY_TYPE_UP + 1;
-    this.KEY_TYPE_RIGHT = this.KEY_TYPE_LEFT + 1,
-    this.KEY_TYPE_MAX = this.KEY_TYPE_RIGHT + 1;
+    this.instance.KEY_TYPE_INVALID = 0;
+    this.instance.KEY_TYPE_SHOT = this.instance.KEY_TYPE_INVALID + 1;
+    this.instance.KEY_TYPE_DOWN = this.instance.KEY_TYPE_SHOT + 1;
+    this.instance.KEY_TYPE_UP = this.instance.KEY_TYPE_DOWN + 1;
+    this.instance.KEY_TYPE_LEFT = this.instance.KEY_TYPE_UP + 1;
+    this.instance.KEY_TYPE_RIGHT = this.instance.KEY_TYPE_LEFT + 1,
+    this.instance.KEY_TYPE_MAX = this.instance.KEY_TYPE_RIGHT + 1;
 
-    this.BIT_KEY_SHOT = 1 << this.KEY_TYPE_SHOT;
-    this.BIT_KEY_DOWNKEY = 1 << this.KEY_TYPE_DOWN;
-    this.BIT_KEY_UP = 1 << this.KEY_TYPE_UP;
-    this.BIT_KEY_LEFT = 1 << this.KEY_TYPE_LEFT;
-    this.BIT_KEY_RIGHT = 1 << this.KEY_TYPE_RIGHT;
+    this.instance.BIT_KEY_SHOT = 1 << this.instance.KEY_TYPE_SHOT;
+    this.instance.BIT_KEY_DOWNKEY = 1 << this.instance.KEY_TYPE_DOWN;
+    this.instance.BIT_KEY_UP = 1 << this.instance.KEY_TYPE_UP;
+    this.instance.BIT_KEY_LEFT = 1 << this.instance.KEY_TYPE_LEFT;
+    this.instance.BIT_KEY_RIGHT = 1 << this.instance.KEY_TYPE_RIGHT;
   }
 
   pressKey (key) {
-    this._pressedKey |= key;
+    this.instance._pressedKey |= key;
   }
 
   clearKey () {
-    this._pressedKey = this.KEY_TYPE_INVALID;
+    this.instance._pressedKey = this.instance.KEY_TYPE_INVALID;
   }
 
   isPressed (key) {
-    return (this._pressedKey & key) === key;
+    return (this.instance._pressedKey & key) === key;
   }
 }
