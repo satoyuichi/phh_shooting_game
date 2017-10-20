@@ -1,15 +1,15 @@
-let single_instance = null;
+let asset_single_instance = null;
 
 export class Asset {
 
   constructor () {
-    if(!single_instance) {
-      single_instance = this;
-      single_instance.initStandardAssets ();
-      single_instance._advancedAssets = {};
+    if(!asset_single_instance) {
+      asset_single_instance = this;
+      asset_single_instance.initStandardAssets ();
+      asset_single_instance._advancedAssets = {};
     }
 
-    return single_instance;
+    return asset_single_instance;
   }
 
   initStandardAssets () {
@@ -31,11 +31,11 @@ export class Asset {
   }
 
   get instance () {
-    if (!single_instance) {
-      single_instance = new Asset ();
+    if (!asset_single_instance) {
+      asset_single_instance = new Asset ();
     }
 
-    return single_instance;
+    return asset_single_instance;
   }
 
   static get RESOURCE_TYPE_IMAGE () {
