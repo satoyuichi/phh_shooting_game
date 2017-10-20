@@ -27,4 +27,8 @@ export class Controller {
   clearKey () {
     this._pressedKey = this.KEY_TYPE_INVALID;
   }
+
+  isPressed (key) {
+    return (this._pressedKey & key) === key;
+  }
 }

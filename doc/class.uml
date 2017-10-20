@@ -1,4 +1,26 @@
 @startuml
+class Asset {
++ _standardAssets
++ _advancedAssets
+}
+
+class Sprite {
++ _position
++ _image
+}
+
+class Main {
++ _frameCount
++ _frameStep
++ _controller
++ _stage
++ _asset
+
++ frameStep ()
++ preload ()
++ step ()
+}
+
 Main *-- Controller
 Main *-- Stage
 Main *-- Asset

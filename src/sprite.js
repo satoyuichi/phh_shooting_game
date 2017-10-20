@@ -1,6 +1,7 @@
 export class Sprite {
   constructor () {
     this._position = new p5.Vector (0, 0, 0); // 描画位置
+    this._image = null;
   }
 
   draw () {

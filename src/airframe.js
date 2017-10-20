@@ -1,5 +1,6 @@
 import { Weapon } from './weapon.js';
 import { Sprite } from './sprite.js';
+import { Asset } from './asset.js';
 
 export class Airframe extends Sprite {
   constructor (condition) {
@@ -11,6 +12,13 @@ export class Airframe extends Sprite {
     this._isDead = false;                       // 死亡フラグ
     this._isKilled = false;                     // 殺されたフラグ
     this._hp = 1.0;                             // HP
+
+    let asset = new Asset ();
+    this._image = asset.getAsset ('enemy');
+  }
+
+  draw () {
+    image (this._image, this._position.x, this._position.y, 32, 32);
   }
 
   fireNormal () {
