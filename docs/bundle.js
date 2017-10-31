@@ -1,121 +1,4 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var asset_single_instance = null;
-
-var Asset = exports.Asset = function () {
-  function Asset() {
-    _classCallCheck(this, Asset);
-
-    if (!asset_single_instance) {
-      asset_single_instance = this;
-      asset_single_instance.initStandardAssets();
-      asset_single_instance._advancedAssets = {};
-    }
-
-    return asset_single_instance;
-  }
-
-  _createClass(Asset, [{
-    key: "initStandardAssets",
-    value: function initStandardAssets() {
-      this.instance._standardAssets = {
-        bullet: { type: Asset.RESOURCE_TYPE_IMAGE,
-          url: "http://4.bp.blogspot.com/-J72gjEjMTw0/VJF_TYOe0KI/AAAAAAAAp1Q/jdOBqLRkEro/s150/ball02_white.png"
-        },
-        enemy: { type: Asset.RESOURCE_TYPE_IMAGE,
-          url: "http://1.bp.blogspot.com/-8vjnbp_AXMM/USSkq9AIKTI/AAAAAAAANV0/PQ6FLf-xUks/s400/alien_ufo.png"
-        },
-        mine: { type: Asset.RESOURCE_TYPE_IMAGE,
-          url: "http://1.bp.blogspot.com/-b61DOaSM_q4/VRUS1r55baI/AAAAAAAAswg/WQSc3snquok/s400/space_kikansen.png"
-        }
-      };
-    }
-  }, {
-    key: "getAsset",
-    value: function getAsset(key) {
-      if (this._standardAssets.hasOwnProperty(key)) {
-        return this._standardAssets[key].resource;
-      }
-
-      if (this._advancedAssets.hasOwnProperty(key)) {
-        return this._advancedAssets[key].resource;
-      }
-
-      return null;
-    }
-  }, {
-    key: "load",
-    value: function load() {
-      this.loadImages(this._standardAssets);
-      this.loadImages(this._advancedAssets);
-    }
-  }, {
-    key: "loadImages",
-    value: function loadImages(assetNames) {
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = Object.keys(assetNames)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var key = _step.value;
-
-          var asset = assetNames[key];
-          switch (asset.type) {
-            case Asset.RESOURCE_TYPE_IMAGE:
-              asset.resource = loadImage(asset.url);
-              break;
-          }
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
-            _iterator.return();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-    }
-  }, {
-    key: "advancedAssets",
-    set: function set(val) {
-      this.instance._advancedAssets = val;
-    }
-  }, {
-    key: "instance",
-    get: function get() {
-      if (!asset_single_instance) {
-        asset_single_instance = new Asset();
-      }
-
-      return asset_single_instance;
-    }
-  }], [{
-    key: "RESOURCE_TYPE_IMAGE",
-    get: function get() {
-      return "image";
-    }
-  }]);
-
-  return Asset;
-}();
-
-},{}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -127,7 +10,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _weapon = require('./weapon.js');
 
-var _sprite = require('./sprite.js');
+var _display_object = require('./display_object.js');
 
 var _asset = require('./asset.js');
 
@@ -137,19 +20,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Airframe = exports.Airframe = function (_Sprite) {
-  _inherits(Airframe, _Sprite);
+var Airframe = exports.Airframe = function (_DisplayObject) {
+  _inherits(Airframe, _DisplayObject);
 
   function Airframe(condition) {
     _classCallCheck(this, Airframe);
 
-    var _this = _possibleConstructorReturn(this, (Airframe.__proto__ || Object.getPrototypeOf(Airframe)).call(this));
+    var _this = _possibleConstructorReturn(this, (Airframe.__proto__ || Object.getPrototypeOf(Airframe)).call(this, condition));
 
-    _this._position = new p5.Vector(condition.x, condition.y, 0.0);
-    _this._frameCount = 0.0; // 出現してからのフレーム数
-    _this._velocity = new p5.Vector(0, 1.0, 0); // 速度
-    _this._weapon = new _weapon.Weapon(_this._position); // 武器
-    _this._isDead = false; // 死亡フラグ
+    _this._weapon = new _weapon.Weapon(_this._position, condition.stage); // 武器
     _this._isKilled = false; // 殺されたフラグ
     _this._hp = 1.0; // HP
 
@@ -173,6 +52,8 @@ var Airframe = exports.Airframe = function (_Sprite) {
     value: function step(frameStep) {
       this._position.add(this._velocity);
 
+      this.fireNormal();
+
       // 画面外に出た時の処理をする
       if (this.isOverScreen()) {
         this._isDead = true;
@@ -183,9 +64,9 @@ var Airframe = exports.Airframe = function (_Sprite) {
   }]);
 
   return Airframe;
-}(_sprite.Sprite);
+}(_display_object.DisplayObject);
 
-},{"./asset.js":3,"./sprite.js":5,"./weapon.js":7}],3:[function(require,module,exports){
+},{"./asset.js":2,"./display_object.js":6,"./weapon.js":9}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -302,7 +183,62 @@ var Asset = exports.Asset = function () {
   return Asset;
 }();
 
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Bullet = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _display_object = require('./display_object.js');
+
+var _asset = require('./asset.js');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Bullet = exports.Bullet = function (_DisplayObject) {
+  _inherits(Bullet, _DisplayObject);
+
+  function Bullet(condition) {
+    _classCallCheck(this, Bullet);
+
+    var _this = _possibleConstructorReturn(this, (Bullet.__proto__ || Object.getPrototypeOf(Bullet)).call(this, condition));
+
+    _this._velocity = new p5.Vector(0, 2.5, 0); // 速度
+
+    var asset = new _asset.Asset();
+    _this._image = asset.getAsset('bullet');
+    return _this;
+  }
+
+  _createClass(Bullet, [{
+    key: 'isMyGroup',
+    value: function isMyGroup(group) {
+      return this._group === group;
+    }
+  }, {
+    key: 'step',
+    value: function step(frameStep) {
+      this._position.add(this._velocity);
+    }
+  }, {
+    key: 'group',
+    set: function set(value) {
+      this._group = value;
+    }
+  }]);
+
+  return Bullet;
+}(_display_object.DisplayObject);
+
+},{"./asset.js":2,"./display_object.js":6}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -385,6 +321,92 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var debug_single_instance = null;
+
+var Debug = exports.Debug = function () {
+  function Debug() {
+    _classCallCheck(this, Debug);
+
+    if (!debug_single_instance) {
+      debug_single_instance = this;
+    }
+
+    return debug_single_instance;
+  }
+
+  _createClass(Debug, [{
+    key: "instance",
+    get: function get() {
+      if (!debug_single_instance) {
+        debug_single_instance = new Asset();
+      }
+
+      return debug_single_instance;
+    }
+  }]);
+
+  return Debug;
+}();
+
+},{}],6:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DisplayObject = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _sprite = require('./sprite.js');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DisplayObject = exports.DisplayObject = function (_Sprite) {
+  _inherits(DisplayObject, _Sprite);
+
+  function DisplayObject(condition) {
+    _classCallCheck(this, DisplayObject);
+
+    var _this = _possibleConstructorReturn(this, (DisplayObject.__proto__ || Object.getPrototypeOf(DisplayObject)).call(this));
+
+    _this._position = new p5.Vector(condition.x, condition.y, 0.0);
+    _this._frameCount = 0.0; // 出現してからのフレーム数
+    _this._velocity = new p5.Vector(0, 1.0, 0); // 速度
+    _this._isDead = false; // 死亡フラグ
+    return _this;
+  }
+
+  _createClass(DisplayObject, [{
+    key: 'draw',
+    value: function draw() {
+      if (this._image) {
+        image(this._image, this._position.x, this._position.y, 32, 32);
+      }
+    }
+  }, {
+    key: 'step',
+    value: function step(frameStep) {}
+  }]);
+
+  return DisplayObject;
+}(_sprite.Sprite);
+
+},{"./sprite.js":7}],7:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var Sprite = exports.Sprite = function () {
   function Sprite() {
     _classCallCheck(this, Sprite);
@@ -403,19 +425,19 @@ var Sprite = exports.Sprite = function () {
     value: function isOverScreen() {
       var isOver = false;
 
-      if (this._position.x < -100) {
+      if (this._position.x < -Sprite.OUT_OF_SCREEN) {
         isOver = true;
       }
 
-      if (this._position.x > width + 100) {
+      if (this._position.x > width + Sprite.OUT_OF_SCREEN) {
         isOver = true;
       }
 
-      if (this._position.y < -100) {
+      if (this._position.y < -Sprite.OUT_OF_SCREEN) {
         isOver = true;
       }
 
-      if (this._position.y > height + 100) {
+      if (this._position.y > height + Sprite.OUT_OF_SCREEN) {
         isOver = true;
       }
 
@@ -426,12 +448,17 @@ var Sprite = exports.Sprite = function () {
     set: function set(value) {
       this._position = value;
     }
+  }], [{
+    key: "OUT_OF_SCREEN",
+    get: function get() {
+      return 200;
+    }
   }]);
 
   return Sprite;
 }();
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -454,6 +481,7 @@ var Stage = exports.Stage = function () {
     this._advancedAssets = {}; // このステージで使う Asset
     this._frameCount = 0.0; // ステージが始まってからのフレームカウント
     this._airframes = []; // 出現中の機体
+    this._bullets = []; // 出現中の弾
 
     this.initAppearanceCondition();
   }
@@ -466,12 +494,17 @@ var Stage = exports.Stage = function () {
        出現条件を初期化する
      */
     value: function initAppearanceCondition() {
-      this._appearanCeconditions = [{ frame: 0.0, airframe: _airframe.Airframe, x: 0.0, y: 0.0 }, { frame: 60.0, airframe: _airframe.Airframe, x: 100.0, y: 0.0 }, { frame: 90.0, airframe: _airframe.Airframe, x: 120.0, y: 0.0 }];
+      this._appearanCeconditions = [{ frame: 0.0, airframe: _airframe.Airframe, x: 0.0, y: -50.0 }, { frame: 60.0, airframe: _airframe.Airframe, x: 100.0, y: -50.0 }, { frame: 90.0, airframe: _airframe.Airframe, x: 120.0, y: -50.0 }];
 
       // 念のため出現フレーム順でソートする
       this._appearanCeconditions.sort(function (x, y) {
         return x.frame - y.frame;
       });
+    }
+  }, {
+    key: 'pushBullet',
+    value: function pushBullet(bullet) {
+      this._bullets.push(bullet);
     }
   }, {
     key: 'appearanceLoop',
@@ -486,6 +519,7 @@ var Stage = exports.Stage = function () {
           var condition = _step.value;
 
           if (condition.frame <= this._frameCount) {
+            condition.stage = this;
             this._airframes.push(new condition.airframe(condition));
             appearedCount++;
           } else {
@@ -543,6 +577,35 @@ var Stage = exports.Stage = function () {
         }
       }
     }
+  }, {
+    key: 'bulletLoop',
+    value: function bulletLoop(frameStep) {
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = this._bullets[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var bullet = _step3.value;
+
+          bullet.step(frameStep);
+          bullet.draw();
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+    }
 
     /**
        フレーム毎の処理を行う
@@ -555,6 +618,7 @@ var Stage = exports.Stage = function () {
 
       this.appearanceLoop();
       this.airframeLoop(frameStep);
+      this.bulletLoop(frameStep);
 
       this._frameCount += frameStep;
     }
@@ -568,32 +632,39 @@ var Stage = exports.Stage = function () {
   return Stage;
 }();
 
-},{"./airframe.js":2,"./asset.js":3}],7:[function(require,module,exports){
-"use strict";
+},{"./airframe.js":1,"./asset.js":2}],9:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Weapon = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _bullet = require('./bullet.js');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Weapon = exports.Weapon = function () {
-  function Weapon(position) {
+  function Weapon(position, stage) {
     _classCallCheck(this, Weapon);
 
     this._position = position;
-    this._bullets = [];
-    this._fireInterval = 0.3; // 発射間隔
+    this._fireInterval = 30.0; // 発射間隔
     this._prevFireFrameCount = 0.0; // 発射してからのフレームカウント
+    this._stage = stage;
   }
 
   _createClass(Weapon, [{
-    key: "fire",
+    key: 'fire',
     value: function fire(frameCount) {
       if (this._prevFireFrameCount + this._fireInterval <= frameCount) {
-        this._bullets.push(new Bullet());
+        // TODO: Stage に含める
+        this._stage.pushBullet(new _bullet.Bullet({
+          x: this._position.x,
+          y: this._position.y
+        }));
         this._prevFireFrameCount = frameCount;
       }
     }
@@ -602,7 +673,7 @@ var Weapon = exports.Weapon = function () {
   return Weapon;
 }();
 
-},{}],"Main":[function(require,module,exports){
+},{"./bullet.js":3}],"Main":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -653,4 +724,4 @@ var Main = exports.Main = function () {
   return Main;
 }();
 
-},{"./asset.js":3,"./controller.js":4,"./stage.js":6}]},{},["Main",6,2,5,7,4,1]);
+},{"./asset.js":2,"./controller.js":4,"./stage.js":8}]},{},["Main",8,1,7,9,4,2,5,6]);

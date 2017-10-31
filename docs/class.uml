@@ -27,6 +27,9 @@ class Main {
 class Controller
 Controller .. Singleton
 
+class Debug
+Debug .. Singleton
+
 Main *-- Controller
 Main *-- Stage
 Main *-- Asset
@@ -35,8 +38,9 @@ Asset -- Stage
 Asset -- Sprite
 
 Stage *-- Airframe
-Sprite <|-- Airframe
-Sprite <|-- Bullet
+Sprite <|-- DisplayObject
+DisplayObject <|-- Airframe
+DisplayObject <|-- Bullet
 Airframe *-- Weapon
 Weapon *-- Bullet
 @enduml

@@ -7,6 +7,7 @@ export class Stage {
     };                      // このステージで使う Asset
     this._frameCount = 0.0;     // ステージが始まってからのフレームカウント
     this._airframes = [];       // 出現中の機体
+    this._bullets = [];         // 出現中の弾
 
     this.initAppearanceCondition ();
   }
@@ -20,9 +21,9 @@ export class Stage {
    */
   initAppearanceCondition () {
     this._appearanCeconditions = [
-      { frame: 0.0, airframe: Airframe, x: 0.0, y: 0.0 },
-      { frame: 60.0, airframe: Airframe, x: 100.0, y: 0.0 },
-      { frame: 90.0, airframe: Airframe, x: 120.0, y: 0.0 },
+      { frame: 0.0, airframe: Airframe, x: 0.0, y: -50.0 },
+      { frame: 60.0, airframe: Airframe, x: 100.0, y: -50.0 },
+      { frame: 90.0, airframe: Airframe, x: 120.0, y: -50.0 },
     ];
 
     // 念のため出現フレーム順でソートする
@@ -31,10 +32,15 @@ export class Stage {
     });
   }
 
+  pushBullet (bullet) {
+    this._bullets.push (bullet);
+  }
+  
   appearanceLoop () {
     let appearedCount = 0;
     for (var condition of this._appearanCeconditions) {
       if (condition.frame <= this._frameCount) {
+        condition.stage = this;
         this._airframes.push (new condition.airframe (condition));
         appearedCount++;
       }
@@ -57,6 +63,13 @@ export class Stage {
     }
   }
 
+  bulletLoop (frameStep) {
+    for (var bullet of this._bullets) {
+      bullet.step (frameStep);
+      bullet.draw ();
+    }
+  }
+
   /**
      フレーム毎の処理を行う
    */
@@ -65,6 +78,7 @@ export class Stage {
 
     this.appearanceLoop ();
     this.airframeLoop (frameStep);
+    this.bulletLoop (frameStep);
     
     this._frameCount += frameStep;
   }

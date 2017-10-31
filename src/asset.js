@@ -3,7 +3,7 @@ let asset_single_instance = null;
 export class Asset {
 
   constructor () {
-    if(!asset_single_instance) {
+    if (!asset_single_instance) {
       asset_single_instance = this;
       asset_single_instance.initStandardAssets ();
       asset_single_instance._advancedAssets = {};

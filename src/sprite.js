@@ -12,22 +12,26 @@ export class Sprite {
     this._position = value;
   }
 
+  static get OUT_OF_SCREEN () {
+    return 200;
+  }
+
   isOverScreen () {
     let isOver = false;
 
-    if (this._position.x < -100) {
+    if (this._position.x < -Sprite.OUT_OF_SCREEN) {
       isOver = true;
     }
 
-    if (this._position.x > (width + 100)) {
+    if (this._position.x > (width + Sprite.OUT_OF_SCREEN)) {
       isOver = true;
     }
 
-    if (this._position.y < -100) {
+    if (this._position.y < -Sprite.OUT_OF_SCREEN) {
       isOver = true;
     }
     
-    if (this._position.y > (height + 100)) {
+    if (this._position.y > (height + Sprite.OUT_OF_SCREEN)) {
       isOver = true;
     }
     

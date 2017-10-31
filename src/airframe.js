@@ -1,15 +1,11 @@
 import { Weapon } from './weapon.js';
-import { Sprite } from './sprite.js';
+import { DisplayObject } from './display_object.js';
 import { Asset } from './asset.js';
 
-export class Airframe extends Sprite {
+export class Airframe extends DisplayObject {
   constructor (condition) {
-    super ();
-    this._position = new p5.Vector (condition.x, condition.y, 0.0);
-    this._frameCount = 0.0;     // 出現してからのフレーム数
-    this._velocity = new p5.Vector (0, 1.0, 0); // 速度
-    this._weapon = new Weapon (this._position); // 武器
-    this._isDead = false;                       // 死亡フラグ
+    super (condition);
+    this._weapon = new Weapon (this._position, condition.stage); // 武器
     this._isKilled = false;                     // 殺されたフラグ
     this._hp = 1.0;                             // HP
 
@@ -27,6 +23,8 @@ export class Airframe extends Sprite {
 
   step (frameStep) {
     this._position.add (this._velocity);
+
+    this.fireNormal ();
     
     // 画面外に出た時の処理をする
     if (this.isOverScreen ()) {
